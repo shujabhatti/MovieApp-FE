@@ -71,17 +71,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         records: state.records.map((obj) =>
-          obj.ID === action.payload.ID ? action.payload : obj
+          obj.customer_ID === action.payload.customer_ID ? action.payload : obj
         ),
         onscrrecords: state.onscrrecords.map((obj) =>
-          obj.ID === action.payload.ID ? action.payload : obj
+          obj.customer_ID === action.payload.customer_ID ? action.payload : obj
         ),
         message: "Record Updated.",
         loading: false,
       };
     case DELETE_CUSTOMER:
       const filteredrecords = state.records.filter(
-        (obj) => obj.ID !== action.payload
+        (obj) => obj.customer_ID !== action.payload
       );
       return {
         ...state,

@@ -3,7 +3,6 @@ import MainNav from "../../layouts/MainNav";
 import SubHeader from "../../layouts/SubHeader";
 import LabelContainer from "../../layouts/LabelContainer";
 import InputContainer from "../../layouts/InputContainer";
-import TextAreaContainer from "../../layouts/TextAreaContainer";
 import FormSubmitButton from "../../layouts/FormSubmitButton";
 import ButtonContainer from "../../layouts/ButtonContainer";
 import ConfirmationDialogue from "../../layouts/ConfirmationDialogue";
@@ -40,7 +39,7 @@ import { connect } from "react-redux";
 
 const Customers = (props) => {
   const initialInputs = {
-    customer_ID: "",
+    customer_ID: "0",
     name: "",
     email: "",
     phone: ""

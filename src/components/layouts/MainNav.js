@@ -50,7 +50,7 @@ const MainNav = (props) => {
         <li>
           <ImageContainer
             className='responsive-img'
-            src={require("../../images/dbimg.jpg")}
+            src={require("../../images/movielogo.png")}
             alt='Logo'
           />
         </li>

@@ -155,11 +155,12 @@ const RecordsTable = (props) => {
           width: "auto",
           float: "right",
           marginTop: "20px",
+          marginBottom: "20px",
           backgroundColor: Color.success,
         }}
       />
       {/* Filter Container */}
-      <div className='row'>
+      {/* <div className='row'>
         <div className='col s12 m4'>
           <InputContainer
             type='text'
@@ -185,7 +186,7 @@ const RecordsTable = (props) => {
             style={inputStyle}
           />
         </div>
-      </div>
+      </div> */}
       {/* Table Container */}
       <TableContainer component={Paper}>
         <Table className={classes.table} size='small' aria-label='simple table'>
@@ -223,7 +224,7 @@ const RecordsTable = (props) => {
             {orderBy(onscrrecords, columnToSort, sortDirection)
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((obj) => (
-                <TableRow key={obj.ID}>
+                <TableRow key={obj.customer_ID}>
                   <TableCell component='th' scope='row'>
                     <div
                       style={tableIconStyle}
@@ -240,7 +241,7 @@ const RecordsTable = (props) => {
                   <TableCell>
                     <div
                       style={tableIconStyle}
-                      onClick={onDelete.bind(this, obj.ID)}
+                      onClick={onDelete.bind(this, obj.customer_ID)}
                     >
                       <span className='material-icons'>delete</span>
                     </div>

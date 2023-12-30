@@ -1,7 +1,7 @@
 export default {
-  primary: "blue",
-  primaryHex: "#2196f3",
-  accent: "#c717fc",
+  primary: "#2c2c54",
+  primaryHex: "#40407a",
+  accent: "#474787",
   shadow: "#d0d0d0",
   input: "#f0f0f0",
   fore: "white",
