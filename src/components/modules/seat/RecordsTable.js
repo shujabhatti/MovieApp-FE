@@ -12,7 +12,7 @@ import {
   setCurrentRecord,
   deleteRecord,
   clearErrors,
-} from "../../../actions/customerActions";
+} from "../../../actions/seatActions";
 
 import {
   TablePagination,
@@ -224,7 +224,7 @@ const RecordsTable = (props) => {
             {orderBy(onscrrecords, columnToSort, sortDirection)
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((obj) => (
-                <TableRow key={obj.customer_ID}>
+                <TableRow key={obj.seat_ID}>
                   <TableCell component='th' scope='row'>
                     <div
                       style={tableIconStyle}
@@ -241,7 +241,7 @@ const RecordsTable = (props) => {
                   <TableCell>
                     <div
                       style={tableIconStyle}
-                      onClick={onDelete.bind(this, obj.customer_ID)}
+                      onClick={onDelete.bind(this, obj.seat_ID)}
                     >
                       <span className='material-icons'>delete</span>
                     </div>
@@ -335,8 +335,8 @@ RecordsTable.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  onscrrecords: state.customers.onscrrecords,
-  error: state.customers.error,
+  onscrrecords: state.seats.onscrrecords,
+  error: state.seats.error,
 });
 
 const mapDispatchToProps = (dispatch) => {

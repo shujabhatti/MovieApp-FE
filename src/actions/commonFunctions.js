@@ -1,70 +1,66 @@
 import axios from '../axios';
 
-export const fetchAction = async (url, successType, errorType, dispatch) => {
+export const fetchAction = (url, successType, errorType, dispatch) => apiAction("get", url, successType, errorType, dispatch, null);
 
+export const setOnScreenRecords = (obj, successType, errorType, dispatch) => apiAction("ocr", null, successType, errorType, dispatch, obj);
+
+export const addAction = (obj, url, successType, errorType, dispatch) => apiAction("post", url, successType, errorType, dispatch, obj);
+
+export const updateAction = (obj, url, successType, errorType, dispatch) => apiAction("put", url, successType, errorType, dispatch, obj);
+
+export const deleteAction = (url, successType, errorType, dispatch) => apiAction("delete", url, successType, errorType, dispatch, null);
+
+const apiAction = async (type, url, successType, errorType, dispatch, obj) => {
   try {
-    const res = await axios.get(url);
-
-    dispatch({
-      type: successType,
-      payload: res.data
-    });
-
-  } catch (err) {
-    if(err.response){
-      dispatch({
-        type: errorType,
-        payload: err.response.data.Message,
-      });
-    } else {
-      dispatch({
-        type: errorType,
-        payload: err.message,
-      });
-    }
-  }
-};
-
-export const setOnScreenRecords = async (obj, successType, errorType, dispatch) => {
-
-  try {
-    const data = await obj;
-
-    dispatch({
-      type: successType,
-      payload: data,
-    });
-  } catch (err) {
-    if(err.response){
-      dispatch({
-        type: errorType,
-        payload: err.response.data.Message,
-      });
-    } else {
-      dispatch({
-        type: errorType,
-        payload: err.message,
-      });
-    }
-  }
-};
-
-export const addAction = async (obj, url, successType, errorType, dispatch) => {
-
-  try {
-    
     const config = {
       headers: {
         "Content-Type": "application/json"
       },
     };
 
-    const res = await axios.post(url, obj, config);
-
-    dispatch({
-      type: successType,
-      payload: res.data
-    });
+    if(type === "get"){
+      const res = await axios.get(url);
+      dispatch({
+        type: successType,
+        payload: res.data
+      });
+    }
+    else if(type === "post"){
+      const res = await axios.post(url, obj, config);
+      dispatch({
+        type: successType,
+        payload: res.data
+      });
+    }
+    else if(type === "put"){
+      const res = await axios.put(url, obj, config);
+      dispatch({
+        type: successType,
+        payload: {
+          currentRecord: obj,
+          Message: res.data.Message
+        },
+      });
+    }
+    else if(type === "delete"){
+      const res = await axios.delete(url);
+      var urlParams = new URLSearchParams(url);
+      dispatch({
+        type: successType,
+        payload: { 
+          ID: urlParams.get("id"), 
+          Message : res.data.Message
+        },
+      });
+    }
+    else if(type === "ocr"){
+      // for onscreen records
+      const data = await obj;
+      dispatch({
+        type: successType,
+        payload: data,
+      });
+    }
 
   } catch (err) {
     if(err.response){
@@ -79,70 +75,7 @@ export const addAction = async (obj, url, successType, errorType, dispatch) => {
       });
     }
   }
-};
-
-export const updateAction = async (formData, url, successType, errorType, dispatch) => {
-
-  try {
-    
-    const config = {
-      headers: {
-        "Content-Type": "application/json"
-      },
-    };
-
-    const res = await axios.put(url, formData, config);
-
-    dispatch({
-      type: successType,
-      payload: {
-        currentRecord: formData,
-        Message: res.data.Message
-      },
-    });
-
-  } catch (err) {
-    if(err.response){
-      dispatch({
-        type: errorType,
-        payload: err.response.data.Message,
-      });
-    } else {
-      dispatch({
-        type: errorType,
-        payload: err.message,
-      });
-    }
-  }
-};
-
-export const deleteAction = async (ID, url, successType, errorType, dispatch) => {
-
-  try {
-    const res = await axios.delete(`${url}?id=${ID}`);
-
-    dispatch({
-      type: successType,
-      payload: { 
-        ID, 
-        Message : res.data.Message
-      },
-    });
-
-  } catch (err) {
-    if(err.response){
-      dispatch({
-        type: errorType,
-        payload: err.response.data.Message,
-      });
-    } else {
-      dispatch({
-        type: errorType,
-        payload: err.message,
-      });
-    }
-  }
-};
+}
 
 export const getCurrentDate = () => {
 

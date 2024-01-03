@@ -57,8 +57,68 @@ const MainNav = (props) => {
         <SideBarItem
           id={"cus-id"}
           text={"Customers"}
-          icon={"dashboard"}
+          icon={"person"}
           link={"/customers"}
+        />
+        <SideBarItem
+          id={"cus-cred-id"}
+          text={"Customer Creds"}
+          icon={"web"}
+          link={"/customer-creds"}
+        />
+        <SideBarItem
+          id={"mov-id"}
+          text={"Movies"}
+          icon={"movie"}
+          link={"/movies"}
+        />
+        <SideBarItem
+          id={"scr-id"}
+          text={"Screens"}
+          icon={"movie_filter"}
+          link={"/screens"}
+        />
+        <SideBarItem
+          id={"scr-tier-id"}
+          text={"Screen Tiers"}
+          icon={"fullscreen"}
+          link={"/screen-tiers"}
+        />
+        <SideBarItem
+          id={"seat-id"}
+          text={"Seats"}
+          icon={"airline_seat_recline_extra"}
+          link={"/seats"}
+        />
+        <SideBarItem
+          id={"seat-type-id"}
+          text={"Seat Types"}
+          icon={"map"}
+          link={"/seat-types"}
+        />
+        <SideBarItem
+          id={"show-id"}
+          text={"Showings"}
+          icon={"personal_video"}
+          link={"/showings"}
+        />
+        <SideBarItem
+          id={"staff-id"}
+          text={"Staffs"}
+          icon={"group"}
+          link={"/staff"}
+        />
+        <SideBarItem
+          id={"staff-cred-id"}
+          text={"Staff Creds"}
+          icon={"verified_user"}
+          link={"/staff-creds"}
+        />
+        <SideBarItem
+          id={"ticket-id"}
+          text={"Tickets"}
+          icon={"note"}
+          link={"/tickets"}
         />
         <div className='divider'></div>
       </ul>
