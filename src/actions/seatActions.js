@@ -1,5 +1,6 @@
 import {  
   GET_SEATS,
+  GET_SHORT_SEATS,
   CLEAR_SEATS,
   ADD_SEAT,
   UPDATE_SEAT,
@@ -14,6 +15,8 @@ import {
 import { fetchAction, setOnScreenRecords, addAction, updateAction, deleteAction } from './commonFunctions';
 
 export const getRecords = () => (dispatch) => fetchAction('/Seat/getAll', GET_SEATS, SEAT_ERROR, dispatch);
+
+export const getShortList = () => (dispatch) => fetchAction('/Seat/getShortList', GET_SHORT_SEATS, SEAT_ERROR, dispatch);
 
 export const setOnScrRecords = (obj) => (dispatch) => setOnScreenRecords(obj, SET_ONSCREEN_SEATS, SEAT_ERROR, dispatch);
 

@@ -1,5 +1,6 @@
 import {
   GET_CUSTOMERS,
+  GET_SHORT_CUSTOMERS,
   CLEAR_CUSTOMERS,
   ADD_CUSTOMER,
   UPDATE_CUSTOMER,
@@ -14,6 +15,7 @@ import {
 
 const initialState = {
   records: null,
+  shortrecords: null,
   onscrrecords: [],
   current: null,
   loading: true,
@@ -30,10 +32,17 @@ export default (state = initialState, action) => {
         onscrrecords: action.payload,
         loading: false,
       };
+    case GET_SHORT_CUSTOMERS:
+      return {
+        ...state,
+        shortrecords: action.payload,
+        loading: false,
+      };
     case CLEAR_CUSTOMERS:
       return {
         ...state,
         records: null,
+        shortrecords: null,
         onscrrecords: [],
         message: "",
         error: null,

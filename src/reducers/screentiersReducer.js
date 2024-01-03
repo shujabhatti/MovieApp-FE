@@ -1,5 +1,6 @@
 import {
   GET_SCREEN_TIERS,
+  GET_SHORT_SCREEN_TIERS,
   CLEAR_SCREEN_TIERS,
   ADD_SCREEN_TIER,
   UPDATE_SCREEN_TIER,
@@ -14,6 +15,7 @@ import {
 
 const initialState = {
   records: null,
+  shortrecords: null,
   onscrrecords: [],
   current: null,
   loading: true,
@@ -30,10 +32,17 @@ export default (state = initialState, action) => {
         onscrrecords: action.payload,
         loading: false,
       };
+    case GET_SHORT_SCREEN_TIERS:
+      return {
+        ...state,
+        shortrecords: action.payload,
+        loading: false,
+      };
     case CLEAR_SCREEN_TIERS:
       return {
         ...state,
         records: null,
+        shortrecords: null,
         onscrrecords: [],
         message: "",
         error: null,

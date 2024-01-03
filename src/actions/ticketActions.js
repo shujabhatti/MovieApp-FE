@@ -1,5 +1,6 @@
 import {  
   GET_TICKETS,
+  GET_SHORT_TICKETS,
   CLEAR_TICKETS,
   ADD_TICKET,
   UPDATE_TICKET,
@@ -14,6 +15,8 @@ import {
 import { fetchAction, setOnScreenRecords, addAction, updateAction, deleteAction } from './commonFunctions';
 
 export const getRecords = () => (dispatch) => fetchAction('/Ticket/getAll', GET_TICKETS, TICKET_ERROR, dispatch);
+
+export const getShortList = () => (dispatch) => fetchAction('/Ticket/getShortList', GET_SHORT_TICKETS, TICKET_ERROR, dispatch);
 
 export const setOnScrRecords = (obj) => (dispatch) => setOnScreenRecords(obj, SET_ONSCREEN_TICKETS, TICKET_ERROR, dispatch);
 

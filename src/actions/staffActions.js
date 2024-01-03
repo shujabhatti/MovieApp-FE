@@ -1,5 +1,6 @@
 import {  
   GET_STAFFS,
+  GET_SHORT_STAFFS,
   CLEAR_STAFFS,
   ADD_STAFF,
   UPDATE_STAFF,
@@ -14,6 +15,8 @@ import {
 import { fetchAction, setOnScreenRecords, addAction, updateAction, deleteAction } from './commonFunctions';
 
 export const getRecords = () => (dispatch) => fetchAction('/Staff/getAll', GET_STAFFS, STAFF_ERROR, dispatch);
+
+export const getShortList = () => (dispatch) => fetchAction('/Staff/getShortList', GET_SHORT_STAFFS, STAFF_ERROR, dispatch);
 
 export const setOnScrRecords = (obj) => (dispatch) => setOnScreenRecords(obj, SET_ONSCREEN_STAFFS, STAFF_ERROR, dispatch);
 

@@ -1,5 +1,6 @@
 import {  
   GET_SCREENS,
+  GET_SHORT_SCREENS,
   CLEAR_SCREENS,
   ADD_SCREEN,
   UPDATE_SCREEN,
@@ -14,6 +15,8 @@ import {
 import { fetchAction, setOnScreenRecords, addAction, updateAction, deleteAction } from './commonFunctions';
 
 export const getRecords = () => (dispatch) => fetchAction('/Screen/getAll', GET_SCREENS, SCREEN_ERROR, dispatch);
+
+export const getShortList = () => (dispatch) => fetchAction('/Screen/getShortList', GET_SHORT_SCREENS, SCREEN_ERROR, dispatch);
 
 export const setOnScrRecords = (obj) => (dispatch) => setOnScreenRecords(obj, SET_ONSCREEN_SCREENS, SCREEN_ERROR, dispatch);
 

@@ -1,5 +1,6 @@
 import {
   GET_STAFFS,
+  GET_SHORT_STAFFS,
   CLEAR_STAFFS,
   ADD_STAFF,
   UPDATE_STAFF,
@@ -14,6 +15,7 @@ import {
 
 const initialState = {
   records: null,
+  shortrecords: null,
   onscrrecords: [],
   current: null,
   loading: true,
@@ -30,10 +32,17 @@ export default (state = initialState, action) => {
         onscrrecords: action.payload,
         loading: false,
       };
+    case GET_SHORT_STAFFS:
+      return {
+        ...state,
+        shortrecords: action.payload,
+        loading: false,
+      };
     case CLEAR_STAFFS:
       return {
         ...state,
         records: null,
+        shortrecords: null,
         onscrrecords: [],
         message: "",
         error: null,

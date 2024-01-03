@@ -1,5 +1,6 @@
 import {
   GET_SEAT_TYPES,
+  GET_SHORT_SEAT_TYPES,
   CLEAR_SEAT_TYPES,
   ADD_SEAT_TYPE,
   UPDATE_SEAT_TYPE,
@@ -14,6 +15,7 @@ import {
 
 const initialState = {
   records: null,
+  shortrecords: null,
   onscrrecords: [],
   current: null,
   loading: true,
@@ -30,10 +32,17 @@ export default (state = initialState, action) => {
         onscrrecords: action.payload,
         loading: false,
       };
+    case GET_SHORT_SEAT_TYPES:
+      return {
+        ...state,
+        shortrecords: action.payload,
+        loading: false,
+      };
     case CLEAR_SEAT_TYPES:
       return {
         ...state,
         records: null,
+        shortrecords: null,
         onscrrecords: [],
         message: "",
         error: null,

@@ -1,5 +1,6 @@
 import {  
   GET_SCREEN_TIERS,
+  GET_SHORT_SCREEN_TIERS,
   CLEAR_SCREEN_TIERS,
   ADD_SCREEN_TIER,
   UPDATE_SCREEN_TIER,
@@ -14,6 +15,8 @@ import {
 import { fetchAction, setOnScreenRecords, addAction, updateAction, deleteAction } from './commonFunctions';
 
 export const getRecords = () => (dispatch) => fetchAction('/ScreenTier/getAll', GET_SCREEN_TIERS, SCREEN_TIER_ERROR, dispatch);
+
+export const getShortList = () => (dispatch) => fetchAction('/ScreenTier/getShortList', GET_SHORT_SCREEN_TIERS, SCREEN_TIER_ERROR, dispatch);
 
 export const setOnScrRecords = (obj) => (dispatch) => setOnScreenRecords(obj, SET_ONSCREEN_SCREEN_TIERS, SCREEN_TIER_ERROR, dispatch);
 

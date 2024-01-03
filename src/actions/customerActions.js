@@ -1,5 +1,6 @@
 import {  
   GET_CUSTOMERS,
+  GET_SHORT_CUSTOMERS,
   CLEAR_CUSTOMERS,
   ADD_CUSTOMER,
   UPDATE_CUSTOMER,
@@ -14,6 +15,8 @@ import {
 import { fetchAction, setOnScreenRecords, addAction, updateAction, deleteAction } from './commonFunctions';
 
 export const getRecords = () => (dispatch) => fetchAction('/Customer/getAll', GET_CUSTOMERS, CUSTOMER_ERROR, dispatch);
+
+export const getShortList = () => (dispatch) => fetchAction('/Customer/getShortList', GET_SHORT_CUSTOMERS, CUSTOMER_ERROR, dispatch);
 
 export const setOnScrRecords = (obj) => (dispatch) => setOnScreenRecords(obj, SET_ONSCREEN_CUSTOMERS, CUSTOMER_ERROR, dispatch);
 

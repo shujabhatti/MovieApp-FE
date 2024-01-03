@@ -1,5 +1,6 @@
 import {  
   GET_SEAT_TYPES,
+  GET_SHORT_SEAT_TYPES,
   CLEAR_SEAT_TYPES,
   ADD_SEAT_TYPE,
   UPDATE_SEAT_TYPE,
@@ -14,6 +15,8 @@ import {
 import { fetchAction, setOnScreenRecords, addAction, updateAction, deleteAction } from './commonFunctions';
 
 export const getRecords = () => (dispatch) => fetchAction('/SeatType/getAll', GET_SEAT_TYPES, SEAT_TYPE_ERROR, dispatch);
+
+export const getShortList = () => (dispatch) => fetchAction('/SeatType/getShortList', GET_SHORT_SEAT_TYPES, SEAT_TYPE_ERROR, dispatch);
 
 export const setOnScrRecords = (obj) => (dispatch) => setOnScreenRecords(obj, SET_ONSCREEN_SEAT_TYPES, SEAT_TYPE_ERROR, dispatch);
 

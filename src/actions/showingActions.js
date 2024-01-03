@@ -1,5 +1,6 @@
 import {  
   GET_SHOWINGS,
+  GET_SHORT_SHOWINGS,
   CLEAR_SHOWINGS,
   ADD_SHOWING,
   UPDATE_SHOWING,
@@ -14,6 +15,8 @@ import {
 import { fetchAction, setOnScreenRecords, addAction, updateAction, deleteAction } from './commonFunctions';
 
 export const getRecords = () => (dispatch) => fetchAction('/Showing/getAll', GET_SHOWINGS, SHOWING_ERROR, dispatch);
+
+export const getShortList = () => (dispatch) => fetchAction('/Showing/getShortList', GET_SHORT_SHOWINGS, SHOWING_ERROR, dispatch);
 
 export const setOnScrRecords = (obj) => (dispatch) => setOnScreenRecords(obj, SET_ONSCREEN_SHOWINGS, SHOWING_ERROR, dispatch);
 
