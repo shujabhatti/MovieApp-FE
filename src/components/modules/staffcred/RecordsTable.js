@@ -14,6 +14,8 @@ import {
   clearErrors,
 } from "../../../actions/staffcredActions";
 
+import { getShortList } from '../../../actions/staffActions';
+
 import {
   TablePagination,
   Table,
@@ -93,6 +95,7 @@ const RecordsTable = (props) => {
 
   const refreshRecords = (obj) => {
     props.getRecords();
+    props.getShortList();
     setText("");
   };
 
@@ -328,6 +331,7 @@ RecordsTable.propTypes = {
   onscrrecords: PropTypes.object.isRequired,
   error: PropTypes.object.isRequired,
   getRecords: PropTypes.func.isRequired,
+  getShortList: PropTypes.func.isRequired,
   setOnScrRecords: PropTypes.func.isRequired,
   setCurrentRecord: PropTypes.func.isRequired,
   deleteRecord: PropTypes.func.isRequired,
@@ -342,6 +346,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     getRecords: () => dispatch(getRecords()),
+    getShortList: () => dispatch(getShortList()),
     setOnScrRecords: (obj) => dispatch(setOnScrRecords(obj)),
     setCurrentRecord: (obj) => dispatch(setCurrentRecord(obj)),
     deleteRecord: (id) => dispatch(deleteRecord(id)),

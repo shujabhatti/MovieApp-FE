@@ -3,6 +3,7 @@ import MainNav from "../../layouts/MainNav";
 import SubHeader from "../../layouts/SubHeader";
 import LabelContainer from "../../layouts/LabelContainer";
 import InputContainer from "../../layouts/InputContainer";
+import SelectContainer from "../../layouts/SelectContainer";
 import FormSubmitButton from "../../layouts/FormSubmitButton";
 import ButtonContainer from "../../layouts/ButtonContainer";
 import ConfirmationDialogue from "../../layouts/ConfirmationDialogue";
@@ -16,6 +17,8 @@ import {
   clearCurrentRecord,
   clearErrors,
 } from "../../../actions/staffcredActions";
+
+import { getShortList } from '../../../actions/staffActions';
 
 import {
   showElem,
@@ -107,10 +110,11 @@ const StaffCreds = (props) => {
 
   //#endregion
 
-  const { records, current, message, error } = props;
+  const { records, shortrecords, current, message, error } = props;
 
   useEffect(() => {
     props.getRecords();
+    props.getShortList();
     onCancel();
     // eslint-disable-next-line
   }, []);
@@ -211,13 +215,13 @@ const StaffCreds = (props) => {
                   style={inputStyle}
                   required
                 />
-                <InputContainer
+                <SelectContainer
                   id='staff-inp'
-                  type='text'
+                  list={shortrecords}
                   name='staff_ID'
                   value={staff_ID}
                   onChange={onChange}
-                  text='Staff ID'
+                  text='Select Staff'
                   style={inputStyle}
                   required
                 />
@@ -261,6 +265,7 @@ StaffCreds.propTypes = {
   message: PropTypes.string.isRequired,
   error: PropTypes.object.isRequired,
   getRecords: PropTypes.func.isRequired,
+  getShortList: PropTypes.func.isRequired,
   addRecord: PropTypes.func.isRequired,
   updateRecord: PropTypes.func.isRequired,
   clearCurrentRecord: PropTypes.func.isRequired,
@@ -269,6 +274,7 @@ StaffCreds.propTypes = {
 
 const mapStateToProps = (state) => ({
   records: state.staffcreds.records,
+  shortrecords: state.staffs.shortrecords,
   current: state.staffcreds.current,
   message: state.staffcreds.message,
   error: state.staffcreds.error,
@@ -277,6 +283,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     getRecords: () => dispatch(getRecords()),
+    getShortList: () => dispatch(getShortList()),
     addRecord: (obj) => dispatch(addRecord(obj)),
     updateRecord: (obj) => dispatch(updateRecord(obj)),
     clearCurrentRecord: () => dispatch(clearCurrentRecord()),

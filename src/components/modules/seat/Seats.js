@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import MainNav from "../../layouts/MainNav";
 import SubHeader from "../../layouts/SubHeader";
 import LabelContainer from "../../layouts/LabelContainer";
-import InputContainer from "../../layouts/InputContainer";
+import SelectContainer from "../../layouts/SelectContainer";
 import FormSubmitButton from "../../layouts/FormSubmitButton";
 import ButtonContainer from "../../layouts/ButtonContainer";
 import ConfirmationDialogue from "../../layouts/ConfirmationDialogue";
@@ -16,6 +16,9 @@ import {
   clearCurrentRecord,
   clearErrors,
 } from "../../../actions/seatActions";
+
+import { getShortList as getScreenList } from '../../../actions/screenActions';
+import { getShortList as getSeatTypeList } from '../../../actions/seattypeActions';
 
 import {
   showElem,
@@ -104,10 +107,12 @@ const Seats = (props) => {
 
   //#endregion
 
-  const { records, current, message, error } = props;
+  const { records, screenrecords, seattyperecords, current, message, error } = props;
 
   useEffect(() => {
     props.getRecords();
+    props.getScreenList();
+    props.getSeatTypeList();
     onCancel();
     // eslint-disable-next-line
   }, []);
@@ -188,23 +193,23 @@ const Seats = (props) => {
             <DialogContentText id='alert-dialog-description'>
               <div className="row" style={{minWidth: '400px'}}> 
                 <LabelContainer name='seat_ID' value={seat_ID} text='ID' />
-                <InputContainer
+                <SelectContainer
                   id='scr-id-inp'
-                  type='text'
+                  list={screenrecords}
                   name='screen_ID'
                   value={screen_ID}
                   onChange={onChange}
-                  text='Screen ID'
+                  text='Select Screen'
                   style={inputStyle}
                   required
                 />
-                <InputContainer
+                <SelectContainer
                   id='scr-typ-inp'
-                  type='text'
+                  list={seattyperecords}
                   name='seat_type'
                   value={seat_type}
                   onChange={onChange}
-                  text='Seat Type'
+                  text='Select Seat Type'
                   style={inputStyle}
                   required
                 />
@@ -248,6 +253,8 @@ Seats.propTypes = {
   message: PropTypes.string.isRequired,
   error: PropTypes.object.isRequired,
   getRecords: PropTypes.func.isRequired,
+  getScreenList: PropTypes.func.isRequired,
+  getSeatTypeList: PropTypes.func.isRequired,
   addRecord: PropTypes.func.isRequired,
   updateRecord: PropTypes.func.isRequired,
   clearCurrentRecord: PropTypes.func.isRequired,
@@ -256,6 +263,8 @@ Seats.propTypes = {
 
 const mapStateToProps = (state) => ({
   records: state.seats.records,
+  screenrecords: state.screens.shortrecords,
+  seattyperecords: state.seattypes.shortrecords,
   current: state.seats.current,
   message: state.seats.message,
   error: state.seats.error,
@@ -264,6 +273,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     getRecords: () => dispatch(getRecords()),
+    getScreenList: () => dispatch(getScreenList()),
+    getSeatTypeList: () => dispatch(getSeatTypeList()),
     addRecord: (obj) => dispatch(addRecord(obj)),
     updateRecord: (obj) => dispatch(updateRecord(obj)),
     clearCurrentRecord: () => dispatch(clearCurrentRecord()),

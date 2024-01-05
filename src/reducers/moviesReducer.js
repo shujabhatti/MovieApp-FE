@@ -1,5 +1,6 @@
 import {
   GET_MOVIES,
+  GET_SHORT_MOVIES,
   CLEAR_MOVIES,
   ADD_MOVIE,
   UPDATE_MOVIE,
@@ -14,6 +15,7 @@ import {
 
 const initialState = {
   records: null,
+  shortrecords: null,
   onscrrecords: [],
   current: null,
   loading: true,
@@ -30,10 +32,17 @@ export default (state = initialState, action) => {
         onscrrecords: action.payload,
         loading: false,
       };
+    case GET_SHORT_MOVIES:
+      return {
+        ...state,
+        shortrecords: action.payload,
+        loading: false,
+      };
     case CLEAR_MOVIES:
       return {
         ...state,
         records: null,
+        shortrecords: null,
         onscrrecords: [],
         message: "",
         error: null,

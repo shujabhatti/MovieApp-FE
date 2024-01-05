@@ -3,6 +3,7 @@ import MainNav from "../../layouts/MainNav";
 import SubHeader from "../../layouts/SubHeader";
 import LabelContainer from "../../layouts/LabelContainer";
 import InputContainer from "../../layouts/InputContainer";
+import SelectContainer from "../../layouts/SelectContainer";
 import FormSubmitButton from "../../layouts/FormSubmitButton";
 import ButtonContainer from "../../layouts/ButtonContainer";
 import ConfirmationDialogue from "../../layouts/ConfirmationDialogue";
@@ -16,6 +17,10 @@ import {
   clearCurrentRecord,
   clearErrors,
 } from "../../../actions/ticketActions";
+
+import { getShortList as getCustomerList } from '../../../actions/customerActions';
+import { getShortList as getShowingList } from '../../../actions/showingActions';
+import { getShortList as getSeatList } from '../../../actions/seatActions';
 
 import {
   showElem,
@@ -110,10 +115,13 @@ const Tickets = (props) => {
 
   //#endregion
 
-  const { records, current, message, error } = props;
+  const { records, customerrecords, showingrecords, seatrecords, current, message, error } = props;
 
   useEffect(() => {
     props.getRecords();
+    props.getCustomerList();
+    props.getShowingList();
+    props.getSeatList();
     onCancel();
     // eslint-disable-next-line
   }, []);
@@ -194,33 +202,33 @@ const Tickets = (props) => {
             <DialogContentText id='alert-dialog-description'>
               <div className="row" style={{minWidth: '400px'}}> 
                 <LabelContainer name='ticket_ID' value={ticket_ID} text='ID' />
-                <InputContainer
+                <SelectContainer
                   id='customer-inp'
-                  type='text'
+                  list={customerrecords}
                   name='customer_ID'
                   value={customer_ID}
                   onChange={onChange}
-                  text='Customer ID'
+                  text='Select Customer'
                   style={inputStyle}
                   required
                 />
-                <InputContainer
+                <SelectContainer
                   id='showing-inp'
-                  type='text'
+                  list={showingrecords}
                   name='showing_ID'
                   value={showing_ID}
                   onChange={onChange}
-                  text='Showing ID'
+                  text='Select Showing'
                   style={inputStyle}
                   required
                 />
-                <InputContainer
+                <SelectContainer
                   id='seat-inp'
-                  type='text'
+                  list={seatrecords}
                   name='seat_ID'
                   value={seat_ID}
                   onChange={onChange}
-                  text='Seat ID'
+                  text='Select Seat'
                   style={inputStyle}
                   required
                 />
@@ -274,6 +282,9 @@ Tickets.propTypes = {
   message: PropTypes.string.isRequired,
   error: PropTypes.object.isRequired,
   getRecords: PropTypes.func.isRequired,
+  getCustomerList: PropTypes.func.isRequired,
+  getShowingList: PropTypes.func.isRequired,
+  getSeatList: PropTypes.func.isRequired,
   addRecord: PropTypes.func.isRequired,
   updateRecord: PropTypes.func.isRequired,
   clearCurrentRecord: PropTypes.func.isRequired,
@@ -282,6 +293,9 @@ Tickets.propTypes = {
 
 const mapStateToProps = (state) => ({
   records: state.tickets.records,
+  customerrecords: state.customers.shortrecords,
+  showingrecords: state.showings.shortrecords,
+  seatrecords: state.seats.shortrecords,
   current: state.tickets.current,
   message: state.tickets.message,
   error: state.tickets.error,
@@ -290,6 +304,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     getRecords: () => dispatch(getRecords()),
+    getCustomerList: () => dispatch(getCustomerList()),
+    getShowingList: () => dispatch(getShowingList()),
+    getSeatList: () => dispatch(getSeatList()),
     addRecord: (obj) => dispatch(addRecord(obj)),
     updateRecord: (obj) => dispatch(updateRecord(obj)),
     clearCurrentRecord: () => dispatch(clearCurrentRecord()),

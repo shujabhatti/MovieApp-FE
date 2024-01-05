@@ -27,6 +27,7 @@ export const CLEAR_ONSCREEN_CUSTOMER_CREDS = "CLEAR_ONSCREEN_CUSTOMER_CREDS";
 
 // Movie
 export const GET_MOVIES = "GET_MOVIES";
+export const GET_SHORT_MOVIES = "GET_SHORT_MOVIES";
 export const CLEAR_MOVIES = "CLEAR_MOVIES";
 export const ADD_MOVIE = "ADD_MOVIE";
 export const UPDATE_MOVIE = "UPDATE_MOVIE";

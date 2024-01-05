@@ -14,6 +14,10 @@ import {
   clearErrors,
 } from "../../../actions/ticketActions";
 
+import { getShortList as getCustomerList } from '../../../actions/customerActions';
+import { getShortList as getShowingList } from '../../../actions/showingActions';
+import { getShortList as getSeatList } from '../../../actions/seatActions';
+
 import {
   TablePagination,
   Table,
@@ -93,6 +97,9 @@ const RecordsTable = (props) => {
 
   const refreshRecords = (obj) => {
     props.getRecords();
+    props.getCustomerList();
+    props.getShowingList();
+    props.getSeatList();
     setText("");
   };
 
@@ -328,6 +335,9 @@ RecordsTable.propTypes = {
   onscrrecords: PropTypes.object.isRequired,
   error: PropTypes.object.isRequired,
   getRecords: PropTypes.func.isRequired,
+  getCustomerList: PropTypes.func.isRequired,
+  getShowingList: PropTypes.func.isRequired,
+  getSeatList: PropTypes.func.isRequired,
   setOnScrRecords: PropTypes.func.isRequired,
   setCurrentRecord: PropTypes.func.isRequired,
   deleteRecord: PropTypes.func.isRequired,
@@ -342,6 +352,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     getRecords: () => dispatch(getRecords()),
+    getCustomerList: () => dispatch(getCustomerList()),
+    getShowingList: () => dispatch(getShowingList()),
+    getSeatList: () => dispatch(getSeatList()),
     setOnScrRecords: (obj) => dispatch(setOnScrRecords(obj)),
     setCurrentRecord: (obj) => dispatch(setCurrentRecord(obj)),
     deleteRecord: (id) => dispatch(deleteRecord(id)),

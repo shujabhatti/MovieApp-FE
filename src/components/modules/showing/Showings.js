@@ -3,6 +3,7 @@ import MainNav from "../../layouts/MainNav";
 import SubHeader from "../../layouts/SubHeader";
 import LabelContainer from "../../layouts/LabelContainer";
 import InputContainer from "../../layouts/InputContainer";
+import SelectContainer from "../../layouts/SelectContainer";
 import FormSubmitButton from "../../layouts/FormSubmitButton";
 import ButtonContainer from "../../layouts/ButtonContainer";
 import ConfirmationDialogue from "../../layouts/ConfirmationDialogue";
@@ -16,6 +17,9 @@ import {
   clearCurrentRecord,
   clearErrors,
 } from "../../../actions/showingActions";
+
+import { getShortList as getMoviesList } from '../../../actions/movieActions';
+import { getShortList as getScreensList } from '../../../actions/screenActions';
 
 import {
   showElem,
@@ -113,10 +117,12 @@ const Showings = (props) => {
 
   //#endregion
 
-  const { records, current, message, error } = props;
+  const { records, movierecords, screenrecords, current, message, error } = props;
 
   useEffect(() => {
     props.getRecords();
+    props.getMoviesList();
+    props.getScreensList();
     onCancel();
     // eslint-disable-next-line
   }, []);
@@ -197,23 +203,23 @@ const Showings = (props) => {
             <DialogContentText id='alert-dialog-description'>
               <div className="row" style={{minWidth: '400px'}}> 
                 <LabelContainer name='showing_ID' value={showing_ID} text='ID' />
-                <InputContainer
+                <SelectContainer
                   id='movie-inp'
-                  type='text'
+                  list={movierecords}
                   name='movie_ID'
                   value={movie_ID}
                   onChange={onChange}
-                  text='Movie ID'
+                  text='Select Movie'
                   style={inputStyle}
                   required
                 />
-                <InputContainer
+                <SelectContainer
                   id='screen-inp'
-                  type='text'
+                  list={screenrecords}
                   name='screen_ID'
                   value={screen_ID}
                   onChange={onChange}
-                  text='Screen ID'
+                  text='Select Screen'
                   style={inputStyle}
                   required
                 />
@@ -287,6 +293,8 @@ Showings.propTypes = {
   message: PropTypes.string.isRequired,
   error: PropTypes.object.isRequired,
   getRecords: PropTypes.func.isRequired,
+  getMoviesList: PropTypes.func.isRequired,
+  getScreensList: PropTypes.func.isRequired,
   addRecord: PropTypes.func.isRequired,
   updateRecord: PropTypes.func.isRequired,
   clearCurrentRecord: PropTypes.func.isRequired,
@@ -295,6 +303,8 @@ Showings.propTypes = {
 
 const mapStateToProps = (state) => ({
   records: state.showings.records,
+  movierecords: state.movies.shortrecords,
+  screenrecords: state.screens.shortrecords,
   current: state.showings.current,
   message: state.showings.message,
   error: state.showings.error,
@@ -303,6 +313,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     getRecords: () => dispatch(getRecords()),
+    getMoviesList: () => dispatch(getMoviesList()),
+    getScreensList: () => dispatch(getScreensList()),
     addRecord: (obj) => dispatch(addRecord(obj)),
     updateRecord: (obj) => dispatch(updateRecord(obj)),
     clearCurrentRecord: () => dispatch(clearCurrentRecord()),

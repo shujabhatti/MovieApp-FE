@@ -19,8 +19,8 @@ const SelectContainer = (props) => {
 
         {props.list ? (
           props.list.map((obj) => (
-            <option key={obj.value} value={obj.value}>
-              {obj.text}
+            <option key={obj.name} value={obj.name}>
+              {obj.value}
             </option>
           ))
         ) : (

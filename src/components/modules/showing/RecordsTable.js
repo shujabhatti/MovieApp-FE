@@ -14,6 +14,9 @@ import {
   clearErrors,
 } from "../../../actions/showingActions";
 
+import { getShortList as getMoviesList } from '../../../actions/movieActions';
+import { getShortList as getScreensList } from '../../../actions/screenActions';
+
 import {
   TablePagination,
   Table,
@@ -93,6 +96,8 @@ const RecordsTable = (props) => {
 
   const refreshRecords = (obj) => {
     props.getRecords();
+    props.getMoviesList();
+    props.getScreensList();
     setText("");
   };
 
@@ -328,6 +333,8 @@ RecordsTable.propTypes = {
   onscrrecords: PropTypes.object.isRequired,
   error: PropTypes.object.isRequired,
   getRecords: PropTypes.func.isRequired,
+  getMoviesList: PropTypes.func.isRequired,
+  getScreensList: PropTypes.func.isRequired,
   setOnScrRecords: PropTypes.func.isRequired,
   setCurrentRecord: PropTypes.func.isRequired,
   deleteRecord: PropTypes.func.isRequired,
@@ -342,6 +349,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     getRecords: () => dispatch(getRecords()),
+    getMoviesList: () => dispatch(getMoviesList()),
+    getScreensList: () => dispatch(getScreensList()),
     setOnScrRecords: (obj) => dispatch(setOnScrRecords(obj)),
     setCurrentRecord: (obj) => dispatch(setCurrentRecord(obj)),
     deleteRecord: (id) => dispatch(deleteRecord(id)),

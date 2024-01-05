@@ -1,5 +1,6 @@
 import {  
   GET_MOVIES,
+  GET_SHORT_MOVIES,
   CLEAR_MOVIES,
   ADD_MOVIE,
   UPDATE_MOVIE,
@@ -14,6 +15,8 @@ import {
 import { fetchAction, setOnScreenRecords, addAction, updateAction, deleteAction } from './commonFunctions';
 
 export const getRecords = () => (dispatch) => fetchAction('/Movie/getAll', GET_MOVIES, MOVIE_ERROR, dispatch);
+
+export const getShortList = () => (dispatch) => fetchAction('/Movie/getShortList', GET_SHORT_MOVIES, MOVIE_ERROR, dispatch);
 
 export const setOnScrRecords = (obj) => (dispatch) => setOnScreenRecords(obj, SET_ONSCREEN_MOVIES, MOVIE_ERROR, dispatch);
 

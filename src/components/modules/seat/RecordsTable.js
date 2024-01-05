@@ -14,6 +14,9 @@ import {
   clearErrors,
 } from "../../../actions/seatActions";
 
+import { getShortList as getScreenList } from '../../../actions/screenActions';
+import { getShortList as getSeatTypeList } from '../../../actions/seattypeActions';
+
 import {
   TablePagination,
   Table,
@@ -93,6 +96,8 @@ const RecordsTable = (props) => {
 
   const refreshRecords = (obj) => {
     props.getRecords();
+    props.getScreenList();
+    props.getSeatTypeList();
     setText("");
   };
 
@@ -328,6 +333,8 @@ RecordsTable.propTypes = {
   onscrrecords: PropTypes.object.isRequired,
   error: PropTypes.object.isRequired,
   getRecords: PropTypes.func.isRequired,
+  getScreenList: PropTypes.func.isRequired,
+  getSeatTypeList: PropTypes.func.isRequired,
   setOnScrRecords: PropTypes.func.isRequired,
   setCurrentRecord: PropTypes.func.isRequired,
   deleteRecord: PropTypes.func.isRequired,
@@ -342,6 +349,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     getRecords: () => dispatch(getRecords()),
+    getScreenList: () => dispatch(getScreenList()),
+    getSeatTypeList: () => dispatch(getSeatTypeList()),
     setOnScrRecords: (obj) => dispatch(setOnScrRecords(obj)),
     setCurrentRecord: (obj) => dispatch(setCurrentRecord(obj)),
     deleteRecord: (id) => dispatch(deleteRecord(id)),

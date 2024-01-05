@@ -18,6 +18,8 @@ import {
   clearErrors,
 } from "../../../actions/customercredActions";
 
+import { getShortList } from '../../../actions/customerActions';
+
 import {
   showElem,
   hideElem,
@@ -45,17 +47,6 @@ const CustomersCreds = (props) => {
     customer_ID: "",
     password: ""
   };
-
-  const typeObj = [
-    {
-      text: "Shuja",
-      value: "1",
-    },
-    {
-      text: "Usman",
-      value: "2",
-    },
-  ];
 
   const [record, setRecord] = useState(initialInputs);
   const [formDialog, setFormDialog] = useState(false);
@@ -119,10 +110,11 @@ const CustomersCreds = (props) => {
 
   //#endregion
 
-  const { records, current, message, error } = props;
+  const { records, shortrecords, current, message, error } = props;
 
   useEffect(() => {
     props.getRecords();
+    props.getShortList();
     onCancel();
     // eslint-disable-next-line
   }, []);
@@ -225,11 +217,11 @@ const CustomersCreds = (props) => {
                 />
                 <SelectContainer
                     id='cus-id-inp'
-                    list={typeObj}
+                    list={shortrecords}
                     name='customer_ID'
                     value={customer_ID}
                     onChange={onChange}
-                    text='Customer'
+                    text='Select Customer'
                     style={inputStyle}
                     required
                   />
@@ -273,6 +265,7 @@ CustomersCreds.propTypes = {
   message: PropTypes.string.isRequired,
   error: PropTypes.object.isRequired,
   getRecords: PropTypes.func.isRequired,
+  getShortList: PropTypes.func.isRequired,
   addRecord: PropTypes.func.isRequired,
   updateRecord: PropTypes.func.isRequired,
   clearCurrentRecord: PropTypes.func.isRequired,
@@ -281,6 +274,7 @@ CustomersCreds.propTypes = {
 
 const mapStateToProps = (state) => ({
   records: state.customercreds.records,
+  shortrecords: state.customers.shortrecords,
   current: state.customercreds.current,
   message: state.customercreds.message,
   error: state.customers.error,
@@ -289,6 +283,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     getRecords: () => dispatch(getRecords()),
+    getShortList: () => dispatch(getShortList()),
     addRecord: (obj) => dispatch(addRecord(obj)),
     updateRecord: (obj) => dispatch(updateRecord(obj)),
     clearCurrentRecord: () => dispatch(clearCurrentRecord()),

@@ -3,6 +3,7 @@ import MainNav from "../../layouts/MainNav";
 import SubHeader from "../../layouts/SubHeader";
 import LabelContainer from "../../layouts/LabelContainer";
 import InputContainer from "../../layouts/InputContainer";
+import SelectContainer from "../../layouts/SelectContainer";
 import FormSubmitButton from "../../layouts/FormSubmitButton";
 import ButtonContainer from "../../layouts/ButtonContainer";
 import ConfirmationDialogue from "../../layouts/ConfirmationDialogue";
@@ -16,6 +17,8 @@ import {
   clearCurrentRecord,
   clearErrors,
 } from "../../../actions/screenActions";
+
+import { getShortList } from '../../../actions/screentierActions';
 
 import {
   showElem,
@@ -104,10 +107,11 @@ const Screens = (props) => {
 
   //#endregion
 
-  const { records, current, message, error } = props;
+  const { records, shortrecords, current, message, error } = props;
 
   useEffect(() => {
     props.getRecords();
+    props.getShortList();
     onCancel();
     // eslint-disable-next-line
   }, []);
@@ -198,16 +202,16 @@ const Screens = (props) => {
                   style={inputStyle}
                   required
                 />
-                <InputContainer
-                  id='sc-tier-id-inp'
-                  type='text'
-                  name='sc_tier_ID'
-                  value={sc_tier_ID}
-                  onChange={onChange}
-                  text='Screen Tier ID'
-                  style={inputStyle}
-                  required
-                />
+                <SelectContainer
+                    id='sc-tier-id-inp'
+                    list={shortrecords}
+                    name='sc_tier_ID'
+                    value={sc_tier_ID}
+                    onChange={onChange}
+                    text='Select Screen Tier ID'
+                    style={inputStyle}
+                    required
+                  />
               </div>
             </DialogContentText>
           </DialogContent>
@@ -248,6 +252,7 @@ Screens.propTypes = {
   message: PropTypes.string.isRequired,
   error: PropTypes.object.isRequired,
   getRecords: PropTypes.func.isRequired,
+  getShortList: PropTypes.func.isRequired,
   addRecord: PropTypes.func.isRequired,
   updateRecord: PropTypes.func.isRequired,
   clearCurrentRecord: PropTypes.func.isRequired,
@@ -256,6 +261,7 @@ Screens.propTypes = {
 
 const mapStateToProps = (state) => ({
   records: state.screens.records,
+  shortrecords: state.screentiers.shortrecords,
   current: state.screens.current,
   message: state.screens.message,
   error: state.screens.error,
@@ -264,6 +270,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     getRecords: () => dispatch(getRecords()),
+    getShortList: () => dispatch(getShortList()),
     addRecord: (obj) => dispatch(addRecord(obj)),
     updateRecord: (obj) => dispatch(updateRecord(obj)),
     clearCurrentRecord: () => dispatch(clearCurrentRecord()),
